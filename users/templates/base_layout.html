@@ -1,0 +1,193 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+        <title>Funky Heads</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="icon" href="{% static 'logo.jpg' %}">
+
+
+
+
+
+
+
+
+
+        <link href='https://fonts.googleapis.com/css?family=Forum' rel='stylesheet'>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+        <script> $(document).ready(function() {
+            $(".menu-icon").on("click", function() {
+                  $("nav ul").toggleClass("showing");
+            });
+      });
+
+      // Scrolling Effect
+
+      $(window).on("scroll", function() {
+            if($(window).scrollTop()) {
+                  $('nav').addClass('black');
+            }
+
+            else {
+                  $('nav').removeClass('black');
+            }
+      })</script>
+
+
+
+
+
+    </head>
+
+
+
+
+
+
+
+
+
+
+    <body>
+
+
+
+    <header>
+            <nav>
+               <div class="menu-icon">
+                  <i class="fa fa-bars fa-2x"></i>
+               </div>
+               <div class="logo" >
+                 <h1><a href="{% url 'home_page' %}"><img src="{% static '1.png' %}" alt="funkyheads" /></a></h1>
+               </div>
+               <div class="menu">
+                  <ul>
+                     <li><a href="{% url 'home_page' %}">Home</a></li>
+                      {% if user.is_authenticated %}
+
+                     <li><a href="{% url 'user_logout' %}">Logout</a></li>
+                    <li><a href="{% url 'article_list' %}">Blog</a></li>
+                    <li><a href="{% url 'article_create' %}" class="highlight">New Article</a></li>
+                    <li><a href="{% url 'query_create' %}">Query</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                      {% else %}
+                     <li><a href="{% url 'user_login' %}">Login</a></li>
+                    <li><a href="{% url 'register_view' %}">Signup</a></li>
+                    <li><a href="{% url 'article_list' %}">Blog</a></li>
+                    <li><a href="{% url 'query_create' %}">Query</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                     {% endif %}
+                  </ul>
+               </div>
+            </nav>
+         </header>
+
+
+
+
+
+
+
+        <div class="wrapper">
+            {% block content %}
+
+
+            {% endblock %}
+        </div>
+
+    </body>
+
+
+
+
+
+<footer class="section footer-classic context-dark bg-image" style="background: black;">
+        <div class="container">
+
+
+
+          <div class="row row-30">
+            <div class="col-md-4 col-xl-5">
+              <div class="pr-xl-4"><a class="brand" href="index.html"><img class="brand-logo-light" src="images/agency/logo-inverse-140x37.png" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
+                <p>Funky Heads</p>
+                              <blockquote >
+              <p>
+               “Limitations live only in our minds. But if we use our imaginations, our possibilities become limitless.”
+             </p>
+             <cite>
+              -Jamie Paolinetti
+            </cite>
+                    </blockquote>
+
+                <!-- Rights-->
+                <p class="rights"><span>©  </span><span class="copyright-year">2019</span><span> </span><span>Funky Heads</span><span>. </span><span>All Rights Reserved.</span></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h5>Contacts</h5>
+              <dl class="contact-list">
+                <dt>Address:</dt>
+                <dd>Funky Heads, Near Emgee Greens, Behind St Micheal’s Church, Santissimo Waddo, Taleigao-Goa</dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>email:</dt>
+                <dd><a href="mailto:#">sales.funkyheads@gmail.com</a></dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>Phones:</dt>
+                <dd><a >+919049922743</a> <span>or</span> <a >+919049922743</a>
+                </dd>
+              </dl>
+            </div>
+            <div class="col-md-4 col-xl-3">
+              <h5>Links</h5>
+              <ul class="nav-list">
+                <li><a href="{% url 'article_list' %}">Blog</a></li>
+               <li> <a href="{% url 'user_login' %}">Login</a></li>
+                <li><a href="{% url 'query_create' %}">Query</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+               <li><a href="{% url 'about' %}">About Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters social-container">
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-facebook"></span><span>Facebook</span></a></div>
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-instagram"></span><span>instagram</span></a></div>
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-twitter"></span><span>twitter</span></a></div>
+        </div>
+      </footer>
+
+
+
+
+
+
+</html>
