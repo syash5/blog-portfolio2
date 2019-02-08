@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,16 @@ INSTALLED_APPS = [
     'users'
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
+
+
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

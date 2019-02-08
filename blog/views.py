@@ -6,6 +6,12 @@ from .models import Query
 from blog.forms import Query
 from django.contrib.auth.decorators import login_required
 from blog.forms import CreateArticle
+from django.core.mail import EmailMessage, send_mail
+import smtplib
+from django.conf import settings
+
+
+
 
 
 
@@ -42,6 +48,19 @@ def query_create(request):
     if request.method == 'POST':
         form = Query(request.POST, request.FILES)
         if form.is_valid():
+            # subject= 'Query'
+            # from_email= settings.EMAIL_HOST_USER
+            # to_email=['']
+            # contact_message = "Your Query is sent to our office and we will reply soon"
+            # send_mail(subject, contact_message, from_email, [to_email], fail_silently=True)
+
+            # s = smtplib.SMTP()
+            # s.connect('email-smtp.us-east-1.amazonaws.com', 587)
+            # s.starttls()
+            # s.login('', '')
+            # msg = ' From: abc@gmail.com\nFrom: cde@gmail.com\nSubject: test\n\nTest Email'
+            # s.sendmail('from', 'to', msg)
+
             instance = form.save(commit=False)
             user = request.user
             instance.save()
