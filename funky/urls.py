@@ -19,11 +19,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from graphene_django.views import GraphQLView
+from .schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/',include('allauth.urls')),
     path('', include('blog.urls')),
+    path('api/blog/', include('api.urls')),
     path('', include('users.urls')),
+    path('graphql/',GraphQLView.as_view(graphiql=True,schema=schema)),
 ]
 
 

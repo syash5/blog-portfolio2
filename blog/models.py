@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import UserProfile
-
+from django import forms
 
 
 class Article(models.Model):

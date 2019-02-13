@@ -12,5 +12,4 @@ urlpatterns = [
     path('query/', query_create, name="query_create"),
     path('abcd', abcd, name="abcd"),
 
-
 ]

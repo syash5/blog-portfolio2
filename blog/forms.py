@@ -1,8 +1,7 @@
 from django import forms
-from . import models
 from blog.models import Article
+from .models import Query
 from blog.models import Query
-from users.models import UserProfile
 
 
 class CreateArticle(forms.ModelForm):
@@ -10,10 +9,8 @@ class CreateArticle(forms.ModelForm):
         model = Article
         fields = ['title', 'body', 'thumb',]
 
-class Query(forms.ModelForm):
-    class Meta:
-        model= Query
-        fields = [ 'contact_no','full_name', 'detail']
 
-
-
+class Query_form(forms.Form):
+    full_name= forms.CharField()
+    contact_no = forms.IntegerField()
+    detail = forms.CharField()

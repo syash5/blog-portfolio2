@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,16 +36,41 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'django_extensions',
+    'rest_framework',
+
+    'graphene_django',
+    'api',
     'blog',
     'users'
 ]
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
 AUTH_USER_MODEL = 'users.UserProfile'
 
+LOGIN_REDIRECT_URL = "/"
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LcURpAUAAAAAHE2cc0v7f6em1EvV6fhtdCH2E9m'
+
+GRAPHENE = {
+    'SCHEMA': 'blog.schema.schema' # Where your Graphene schema lives
+}
+
+#enviroment variables a-------  nano .profile         import os  os,environ.get('DB_USER')    then in enviroment files:---  export DB_USER = "abcd"
 
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -81,6 +107,15 @@ TEMPLATES = [
         },
     },
 ]
+
+ACCOUNT_AUTHENTICATION_BACKENDS= 'username_email'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
 
 WSGI_APPLICATION = 'funky.wsgi.application'
 

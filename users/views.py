@@ -7,6 +7,10 @@ from users.models import UserProfile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+import json
+from django.conf import settings
+import requests
+from django.contrib import messages
 
 # Create your views here.
 
@@ -40,17 +44,71 @@ def register_view(request):
 def user_login(request):
     context = {}
     if request.method == "POST":
+
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return HttpResponseRedirect(reverse('user_success'))
+
+
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        ''' End reCAPTCHA validation '''
+
+        if result['success']:
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(reverse('user_success'))
+            else:
+                context["error"] = "Provide valid credentials !!"
+                return render(request, "users/login.html", context)
         else:
-            context["error"] = "Provide valid credentials !!"
+            context["error"] = "Please fill the captcha"
             return render(request, "users/login.html", context)
+
     else:
         return render(request, "users/login.html", context)
+
+# def user_login(request):
+#     context = {}
+#     if request.method == "POST":
+#
+#         username_get = request.POST['username']
+#         password_get = request.POST['password']
+#
+#
+#         ''' Begin reCAPTCHA validation '''
+#         recaptcha_response = request.POST.get('g-recaptcha-response')
+#         data = {
+#             'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+#             'response': recaptcha_response
+#         }
+#         r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+#         result = r.json()
+#         ''' End reCAPTCHA validation '''
+#
+#         if result['success']:
+#
+#             username = request.user.username
+#             password = request.user.password
+#
+#             if username_get==username and password_get==password:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('user_success'))
+#             else:
+#                 context["error"] = "Provide valid credentials !!"
+#                 return render(request, "users/login.html", context)
+#         else:
+#             context["error"] = "Please fill the captcha"
+#             return render(request, "users/login.html", context)
+#
+#     else:
+#         return render(request, "users/login.html", context)
 
 @login_required(login_url="/login/")
 def success(request):
