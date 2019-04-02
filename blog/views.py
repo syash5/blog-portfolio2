@@ -48,7 +48,7 @@ def query_create(request):
     if request.method == 'POST':
         form = Query_form(request.POST, request.FILES)
         if form.is_valid():
-            #gmail smtp
+            # gmail smtp
             # subject= 'Query'
             # from_email= settings.EMAIL_HOST_USER
             # to_email=['']
